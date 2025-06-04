@@ -59,7 +59,6 @@
       h1 {
         font-size: 36px;
       }
-
       #text-block {
         font-size: 24px;
       }
@@ -72,10 +71,10 @@
 
   <script>
     const targetWord = "допитливий зайчик";
-    const allCyrillic = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя";
+    const allCyrillic = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя ";
     const textBlock = document.getElementById("text-block");
 
-    const totalLetters = 300;
+    const totalLetters = 400;
     const targetLetters = targetWord.split("");
     const insertPositions = [];
     const interval = Math.floor(totalLetters / targetLetters.length);
@@ -106,7 +105,7 @@
     }
 
     function moveToCenter() {
-      const spacing = 32;
+      const spacing = 28;
       const wordWidth = spacing * targetLetters.length;
       const boxRect = textBlock.getBoundingClientRect();
       const centerX = boxRect.left + boxRect.width / 2 - wordWidth / 2;
@@ -145,7 +144,7 @@
     document.addEventListener("touchend", () => {
       setTimeout(() => {
         if (!isFullWordSelected()) resetPosition();
-      }, 500);
+      }, 600);
     });
 
     window.addEventListener("resize", resetPosition);
