@@ -3,93 +3,103 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Наведи на мене</title>
+  <title>наведи на мене</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(145deg, #eef2f3, #8e9eab);
-      color: #333;
+      background: linear-gradient(145deg, #dfe9f3, #ffffff);
+      color: #1a1a1a;
       overflow-x: hidden;
+      min-height: 100vh;
     }
 
     h1 {
       text-align: center;
-      font-size: 2em;
-      margin: 1.5rem 1rem;
+      font-size: 2.5em;
+      margin: 2rem 1rem;
+      color: #3f51b5;
     }
 
     .container {
       position: relative;
-      padding: 10px;
+      padding: 20px;
       max-width: 100%;
       margin: auto;
-      font-size: 1.2em;
-      line-height: 1.6;
+      font-size: 1.5em;
+      line-height: 2;
       user-select: none;
       transition: all 0.3s ease-in-out;
-      overflow: hidden;
+      overflow: visible;
+      text-align: center;
     }
 
     .highlight {
       display: inline-block;
-      transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 1.5s ease;
       position: relative;
-      white-space: nowrap;
+      color: #444;
+      padding: 0 0.1em;
+      z-index: 1;
     }
 
     .hovered .highlight {
-      font-size: 2em;
+      font-size: 2.2em;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #ff4081;
+      color: #2196f3;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      z-index: 10;
     }
 
-    .hovered .highlight.t { transform: translate(-360px, 100px); }
-    .hovered .highlight.o { transform: translate(-300px, 100px); }
-    .hovered .highlight.p { transform: translate(-240px, 100px); }
-    .hovered .highlight.i { transform: translate(-180px, 100px); }
-    .hovered .highlight.t2 { transform: translate(-120px, 100px); }
-    .hovered .highlight.l { transform: translate(-60px, 100px); }
-    .hovered .highlight.i2 { transform: translate(0px, 100px); }
-    .hovered .highlight.v { transform: translate(60px, 100px); }
-    .hovered .highlight.y { transform: translate(120px, 100px); }
-    .hovered .highlight.y2 { transform: translate(180px, 100px); }
-    .hovered .highlight.space { transform: translate(240px, 100px); }
-    .hovered .highlight.z { transform: translate(300px, 100px); }
-    .hovered .highlight.a { transform: translate(360px, 100px); }
-    .hovered .highlight.y3 { transform: translate(420px, 100px); }
-    .hovered .highlight.ch { transform: translate(480px, 100px); }
-    .hovered .highlight.y4 { transform: translate(540px, 100px); }
-    .hovered .highlight.k { transform: translate(600px, 100px); }
+    .hovered .highlight.t { transform: translate(-360px, 80px); }
+    .hovered .highlight.o { transform: translate(-300px, 80px); }
+    .hovered .highlight.p { transform: translate(-240px, 80px); }
+    .hovered .highlight.i { transform: translate(-180px, 80px); }
+    .hovered .highlight.t2 { transform: translate(-120px, 80px); }
+    .hovered .highlight.l { transform: translate(-60px, 80px); }
+    .hovered .highlight.i2 { transform: translate(0px, 80px); }
+    .hovered .highlight.v { transform: translate(60px, 80px); }
+    .hovered .highlight.y { transform: translate(120px, 80px); }
+    .hovered .highlight.y2 { transform: translate(180px, 80px); }
+    .hovered .highlight.space { transform: translate(240px, 80px); }
+    .hovered .highlight.z { transform: translate(300px, 80px); }
+    .hovered .highlight.a { transform: translate(360px, 80px); }
+    .hovered .highlight.y3 { transform: translate(420px, 80px); }
+    .hovered .highlight.ch { transform: translate(480px, 80px); }
+    .hovered .highlight.y4 { transform: translate(540px, 80px); }
+    .hovered .highlight.k { transform: translate(600px, 80px); }
 
     @media (max-width: 768px) {
       h1 {
-        font-size: 1.5em;
+        font-size: 1.8em;
+      }
+      .container {
+        font-size: 1.2em;
       }
       .hovered .highlight {
-        font-size: 1.3em;
+        font-size: 1.5em;
       }
-      .hovered .highlight.t { transform: translate(-140px, 80px); }
-      .hovered .highlight.o { transform: translate(-120px, 80px); }
-      .hovered .highlight.p { transform: translate(-100px, 80px); }
-      .hovered .highlight.i { transform: translate(-80px, 80px); }
-      .hovered .highlight.t2 { transform: translate(-60px, 80px); }
-      .hovered .highlight.l { transform: translate(-40px, 80px); }
-      .hovered .highlight.i2 { transform: translate(-20px, 80px); }
-      .hovered .highlight.v { transform: translate(0px, 80px); }
-      .hovered .highlight.y { transform: translate(20px, 80px); }
-      .hovered .highlight.y2 { transform: translate(40px, 80px); }
-      .hovered .highlight.space { transform: translate(60px, 80px); }
-      .hovered .highlight.z { transform: translate(80px, 80px); }
-      .hovered .highlight.a { transform: translate(100px, 80px); }
-      .hovered .highlight.y3 { transform: translate(120px, 80px); }
-      .hovered .highlight.ch { transform: translate(140px, 80px); }
-      .hovered .highlight.y4 { transform: translate(160px, 80px); }
-      .hovered .highlight.k { transform: translate(180px, 80px); }
+      .hovered .highlight.t { transform: translate(-160px, 60px); }
+      .hovered .highlight.o { transform: translate(-140px, 60px); }
+      .hovered .highlight.p { transform: translate(-120px, 60px); }
+      .hovered .highlight.i { transform: translate(-100px, 60px); }
+      .hovered .highlight.t2 { transform: translate(-80px, 60px); }
+      .hovered .highlight.l { transform: translate(-60px, 60px); }
+      .hovered .highlight.i2 { transform: translate(-40px, 60px); }
+      .hovered .highlight.v { transform: translate(-20px, 60px); }
+      .hovered .highlight.y { transform: translate(0px, 60px); }
+      .hovered .highlight.y2 { transform: translate(20px, 60px); }
+      .hovered .highlight.space { transform: translate(40px, 60px); }
+      .hovered .highlight.z { transform: translate(60px, 60px); }
+      .hovered .highlight.a { transform: translate(80px, 60px); }
+      .hovered .highlight.y3 { transform: translate(100px, 60px); }
+      .hovered .highlight.ch { transform: translate(120px, 60px); }
+      .hovered .highlight.y4 { transform: translate(140px, 60px); }
+      .hovered .highlight.k { transform: translate(160px, 60px); }
     }
   </style>
 </head>
@@ -121,7 +131,6 @@
 
     textContainer.innerHTML = paragraph;
 
-    // Hover and touch events
     textContainer.addEventListener('mouseenter', () => {
       textContainer.classList.add('hovered');
     });
