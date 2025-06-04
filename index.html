@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <title>Цікаве слово</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #e0f7fa, #fce4ec);
+      color: #333;
+      user-select: text;
+      -webkit-user-select: text;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 6vw;
+      text-align: center;
+      margin: 32px 12px 16px;
+      color: #222;
+      font-weight: 400;
+    }
+
+    #text-block {
+      font-size: 5vw;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+      text-align: left;
+      position: relative;
+    }
+
+    .highlight {
+      color: #111;
+      position: relative;
+      display: inline-block;
+      transition: transform 0.6s ease;
+    }
+
+    .highlight::selection {
+      background-color: #ffd54f;
+    }
+
+    .centered {
+      position: absolute;
+      z-index: 1000;
+    }
+
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 36px;
+      }
+
+      #text-block {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Select all the text</h1>
+  <div id="text-block"></div>
+
+  <script>
+    const targetWord = "допитливий";
+    const allCyrillic = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя";
+    const textBlock = document.getElementById("text-block");
+
+    const totalLetters = 300;
+    const targetLetters = targetWord.split("");
+    const insertPositions = [];
+    const interval = Math.floor(totalLetters / targetLetters.length);
+
+    for (let i = 0; i < targetLetters.length; i++) {
+      insertPositions.push(i * interval + Math.floor(Math.random() * (interval - 1)));
+    }
+
+    let textContent = "";
+    for (let i = 0; i < totalLetters; i++) {
+      if (insertPositions.includes(i)) {
+        const letter = targetLetters[insertPositions.indexOf(i)];
+        textContent += `<span class="highlight" data-index="${insertPositions.indexOf(i)}">${letter}</span>`;
+      } else {
+        const rand = allCyrillic[Math.floor(Math.random() * allCyrillic.length)];
+        textContent += rand;
+      }
+    }
+    textBlock.innerHTML = textContent;
+
+    const highlights = Array.from(document.querySelectorAll(".highlight"));
+
+    function isFullWordSelected() {
+      const selection = window.getSelection();
+      if (!selection || selection.rangeCount === 0) return false;
+      const range = selection.getRangeAt(0);
+      return highlights.every(span => range.intersectsNode(span));
+    }
+
+    function moveToCenter() {
+      const spacing = 32;
+      const wordWidth = spacing * targetLetters.length;
+      const boxRect = textBlock.getBoundingClientRect();
+      const centerX = boxRect.left + boxRect.width / 2 - wordWidth / 2;
+      const centerY = boxRect.top + boxRect.height / 2;
+
+      highlights.forEach((span, i) => {
+        const rect = span.getBoundingClientRect();
+        const letterX = centerX + i * spacing;
+        const letterY = centerY;
+        const offsetX = letterX - rect.left + window.scrollX;
+        const offsetY = letterY - rect.top + window.scrollY;
+        span.classList.add("centered");
+        span.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      });
+    }
+
+    function resetPosition() {
+      highlights.forEach(span => {
+        span.classList.remove("centered");
+        span.style.transform = "translate(0, 0)";
+      });
+    }
+
+    let resetTimeout;
+    document.addEventListener("selectionchange", () => {
+      clearTimeout(resetTimeout);
+      if (isFullWordSelected()) {
+        moveToCenter();
+      } else {
+        resetTimeout = setTimeout(() => {
+          resetPosition();
+        }, 200);
+      }
+    });
+
+    document.addEventListener("touchend", () => {
+      setTimeout(() => {
+        if (!isFullWordSelected()) resetPosition();
+      }, 500);
+    });
+
+    window.addEventListener("resize", resetPosition);
+    window.addEventListener("scroll", () => {
+      if (!isFullWordSelected()) resetPosition();
+    });
+  </script>
+</body>
+</html>
